@@ -48,15 +48,14 @@ public class ItemUtil {
         return item;
     }
 
-    public static HashMap<Integer,List<ItemStack>> getRecipes(ItemStack item){
-        HashMap<Integer, List<ItemStack>> results = new HashMap<>();
+    public static List<ItemStack> getRecipes(ItemStack item){
         List<ItemStack> grid = new ArrayList<>();
         ItemStack ingredient;
         int count = 0;
         for(Recipe recipe:Bukkit.getRecipesFor(item)){
             if(recipe instanceof ShapelessRecipe){
                 for(ItemStack itemStack:((ShapelessRecipe) recipe).getIngredientList()){
-                    if(itemStack == null || itemStack.getType().equals(Material.AIR)){
+                    if(itemStack == null){
                         ingredient = new ItemStack(Material.AIR);
                     }else if(item.getDurability()>15){
                         ingredient = new ItemStack(itemStack.getType(), item.getAmount(), (short) 0);
@@ -67,7 +66,7 @@ public class ItemUtil {
                 }
             }else if(recipe instanceof ShapedRecipe){
                 for(ItemStack itemStack:((ShapedRecipe) recipe).getIngredientMap().values()){
-                    if(itemStack == null || itemStack.getType().equals(Material.AIR)){
+                    if(itemStack == null){
                         ingredient = new ItemStack(Material.AIR);
                     }else if(item.getDurability()>15){
                         ingredient = new ItemStack(itemStack.getType(), item.getAmount(), (short) 0);
@@ -77,10 +76,8 @@ public class ItemUtil {
                     grid.add(ingredient);
                 }
             }
-            count++;
-            results.put(count,grid);
         }
-        return results;
+        return grid;
     }
 
 }

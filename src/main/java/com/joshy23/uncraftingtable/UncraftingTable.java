@@ -1,6 +1,7 @@
 package com.joshy23.uncraftingtable;
 
 import com.joshy23.uncraftingtable.commands.CommandBase;
+import com.joshy23.uncraftingtable.listener.InventoryListener;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -9,8 +10,8 @@ public class UncraftingTable extends JavaPlugin {
 
     public void onEnable() {
         plugin=this;
-        getCommand("ut").setExecutor(new CommandBase());
-        getCommand("ut").setTabCompleter(new CommandBase());
+        setCommands();
+        setEvents();
     }
 
     public void onDisable() {
@@ -19,6 +20,15 @@ public class UncraftingTable extends JavaPlugin {
 
     public static UncraftingTable getPlugin() {
         return plugin;
+    }
+
+    public void setCommands(){
+        getCommand("ut").setExecutor(new CommandBase());
+        getCommand("ut").setTabCompleter(new CommandBase());
+    }
+
+    public void setEvents(){
+        getServer().getPluginManager().registerEvents(new InventoryListener(), plugin);
     }
 
 }
