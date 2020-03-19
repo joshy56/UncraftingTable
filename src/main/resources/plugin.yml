@@ -1,0 +1,7 @@
+main: com.joshy23.uncraftingtable.UncraftingTable
+name: UncraftingTable
+version: 1.0.0
+api-version: 1.13
+commands:
+  ut:
+    description: Main command

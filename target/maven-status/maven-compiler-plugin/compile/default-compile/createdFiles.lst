@@ -1,0 +1,8 @@
+com\joshy23\uncraftingtable\UncraftingTable.class
+com\joshy23\uncraftingtable\commands\CommandBase.class
+com\joshy23\uncraftingtable\util\ConfigurationUtil.class
+com\joshy23\uncraftingtable\util\ItemUtil.class
+com\joshy23\uncraftingtable\util\ColorUtil.class
+com\joshy23\uncraftingtable\commands\InventoryOpenCommand.class
+com\joshy23\uncraftingtable\inventory\UncraftingInventory.class
+com\joshy23\uncraftingtable\listener\InventoryListener.class
