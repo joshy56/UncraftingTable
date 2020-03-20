@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class UncraftingInventory {
     private static Inventory inventory;
-    private static final int[] grid = {14,15,16,23,24,25,32,33,34};
+    private static final int[] grid = {12,13,14,21,22,23,30,31,32};
 
     public UncraftingInventory(Player player){
         inventory = Bukkit.createInventory(player, 54, ColorUtil.color("&2&m<<&3&lUncraftingTable&2&m>>"));
@@ -23,7 +23,7 @@ public class UncraftingInventory {
         for(int i:grid){
             inventory.setItem(i, ItemUtil.createItem("barrier", 1, 0, " "));
         }
-        inventory.setItem(21, new ItemStack(Material.AIR, 1));
+        inventory.setItem(19, new ItemStack(Material.AIR, 1));
         inventory.setItem(49, ItemUtil.createItem("barrier", 1, 0, "&c&lCERRAR"));
     }
 
@@ -44,6 +44,7 @@ public class UncraftingInventory {
             inventory.setItem(i, ItemUtil.createItem("stained_glass_pane", 1, 5, " "));
         }
         inventory.setItem(49, ItemUtil.createItem("barrier", 1, 0, " "));
+        inventory.setItem(25, ItemUtil.createItem("Stained_glass_pane", 1, 4, "&a&lDecraft"));
     }
 
     public void setWaiting(){
@@ -54,6 +55,7 @@ public class UncraftingInventory {
             inventory.setItem(i, ItemUtil.createItem("barrier", 1, 0, " "));
         }
         inventory.setItem(49, ItemUtil.createItem("barrier", 1, 0, " "));
+        inventory.setItem(25, ItemUtil.createItem("Stained_glass_pane", 1, 15, " "));
     }
 
 }

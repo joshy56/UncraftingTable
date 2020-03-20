@@ -12,7 +12,6 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class InventoryOpenCommand implements TabExecutor {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player){
-            if(args.length>1 && args[0].equalsIgnoreCase("open")) {
+            if(args.length>0 && args[0].equalsIgnoreCase("open")) {
                 Player player = (Player) sender;
                 inventory = new UncraftingInventory(player);
                 gui = UncraftingInventory.getInventory();
@@ -33,18 +32,21 @@ public class InventoryOpenCommand implements TabExecutor {
                 taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
                     @Override
                     public void run() {
-                        if(gui.getItem(21) == null){
+                        if(gui.getItem(19) == null){
                             setReady(false);
                             inventory.setWaiting();
                         }else{
-                            if(ItemUtil.getRecipes(gui.getItem(21)).isEmpty()){
+                            if(ItemUtil.getRecipes(gui.getItem(19)).isEmpty()){
 
                             }else{
                                 inventory.setReady();
                                 setReady(true);
-                                for(ItemStack item:ItemUtil.getRecipes(gui.getItem(21))){
-                                    for(int i:UncraftingInventory.getGrid()){
-                                        gui.setItem(i, item);
+                                List<ItemStack> ingredients = ItemUtil.getRecipes(gui.getItem(19));
+                                for (int i = 0, c = 0; i < ingredients.size() && c < UncraftingInventory.getGrid().length; i++, c++) {
+                                    if(gui.getItem(UncraftingInventory.getGrid()[i]) == null){
+                                        gui.setItem(UncraftingInventory.getGrid()[i], new ItemStack(Material.AIR));
+                                    }else{
+                                        gui.setItem(UncraftingInventory.getGrid()[i], ingredients.get(i));
                                     }
                                 }
                             }

@@ -50,30 +50,26 @@ public class ItemUtil {
 
     public static List<ItemStack> getRecipes(ItemStack item){
         List<ItemStack> grid = new ArrayList<>();
-        ItemStack ingredient;
-        int count = 0;
         for(Recipe recipe:Bukkit.getRecipesFor(item)){
-            if(recipe instanceof ShapelessRecipe){
-                for(ItemStack itemStack:((ShapelessRecipe) recipe).getIngredientList()){
-                    if(itemStack == null){
-                        ingredient = new ItemStack(Material.AIR);
-                    }else if(item.getDurability()>15){
-                        ingredient = new ItemStack(itemStack.getType(), item.getAmount(), (short) 0);
+            if(recipe instanceof ShapedRecipe){
+                for(ItemStack ingredient:((ShapedRecipe) recipe).getIngredientMap().values()){
+                    if(ingredient == null){
+                        grid.add(new ItemStack(Material.AIR));
+                    }else if(ingredient.getDurability()>15){
+                        grid.add(new ItemStack(ingredient.getType(), item.getAmount(), (short) 0));
                     }else{
-                        ingredient = new ItemStack(itemStack.getType(), item.getAmount(), itemStack.getDurability());
+                        grid.add(new ItemStack(ingredient.getType(), item.getAmount(), ingredient.getDurability()));
                     }
-                    grid.add(ingredient);
                 }
-            }else if(recipe instanceof ShapedRecipe){
-                for(ItemStack itemStack:((ShapedRecipe) recipe).getIngredientMap().values()){
-                    if(itemStack == null){
-                        ingredient = new ItemStack(Material.AIR);
-                    }else if(item.getDurability()>15){
-                        ingredient = new ItemStack(itemStack.getType(), item.getAmount(), (short) 0);
+            }else if(recipe instanceof ShapelessRecipe){
+                for(ItemStack ingredient:((ShapelessRecipe) recipe).getIngredientList()){
+                    if(ingredient == null){
+                        grid.add(new ItemStack(Material.AIR));
+                    }else if(ingredient.getDurability()>15){
+                        grid.add(new ItemStack(ingredient.getType(), item.getAmount(), (short) 0));
                     }else{
-                        ingredient = new ItemStack(itemStack.getType(), item.getAmount(), itemStack.getDurability());
+                        grid.add(new ItemStack(ingredient.getType(), item.getAmount(), ingredient.getDurability()));
                     }
-                    grid.add(ingredient);
                 }
             }
         }
